@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Feliz Día del Hombre, mi amor</title>
+<style>
+  body {
+    margin: 0;
+    padding: 0;
+    background: #000;
+    font-family: 'Poppins', sans-serif;
+    overflow: hidden;
+  }
+
+  .container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    color: #fff;
+    text-align: center;
+  }
+
+  .slideshow-img {
+    width: 80%;
+    max-width: 350px;
+    border-radius: 18px;
+    box-shadow: 0 0 25px rgba(255,255,255,0.4);
+    opacity: 0;
+    transition: opacity 1.6s ease;
+  }
+
+  .mensaje {
+    margin-top: 20px;
+    font-size: 1.3rem;
+    font-weight: 400;
+    opacity: 0;
+    transition: opacity 1.6s ease;
+    max-width: 80%;
+    line-height: 1.5;
+  }
+
+  #reiniciar {
+    margin-top: 25px;
+    padding: 12px 24px;
+    background: #ffffff22;
+    color: #fff;
+    border: 1px solid #ffffff55;
+    border-radius: 14px;
+    font-size: 1rem;
+    cursor: pointer;
+    backdrop-filter: blur(5px);
+    opacity: 0;
+    transition: opacity 1.5s ease;
+  }
+  #reiniciar:hover {
+    background: #ffffff33;
+  }
+</style>
+</head>
+<body>
+
+<audio id="musica" src="musica.mp3" autoplay loop></audio>
+
+<div class="container">
+  <img id="foto" class="slideshow-img" src="foto1.jpg" />
+  <div id="texto" class="mensaje"></div>
+  <button id="reiniciar" onclick="reiniciarShow()">Volver a ver</button>
+</div>
+
+<script>
+// Fotos 1 a 4 (la última es la final)
+const fotos = [
+  "foto1.jpg",
+  "foto2.jpg",
+  "foto3.jpg",
+  "foto4.jpg"
+];
+
+// Mensajes largos para las primeras 3 imágenes
+const mensajes = [
+  "Desde que te conocí, hace ya medio añito, descubrí en ti una tranquilidad y una forma de ser que me hacen sentir segura y afortunada. Me encanta cómo eres, cómo hablas, cómo miras, cómo sientes. Y aunque recién cumpliremos nuestros dos mesecitos juntos, siento que cada día contigo vale muchísimo.",
+
+  "Me encanta soñar contigo, con lo que podemos construir, con todo lo bonito que podemos lograr de la mano. Tienes una esencia tan preciosa que me inspira, me calma y me impulsa a querer ser siempre mejor para ti, para nosotros, para lo que estamos formando.",
+
+  "Quiero tantas cosas contigo… quiero acompañarte, cuidarte, apoyarte y caminar juntos hacia todo lo que los dos deseamos. Quiero un futuro donde podamos mirar atrás y decir: lo hicimos, lo logramos, crecimos, y lo hicimos siempre juntos."
+];
+
+// Mensaje final (para la foto 4)
+const mensajeFinal = "Feliz Día del Hombre, mi amor. Gracias por existir en mi vida y por todo lo que estamos construyendo juntos.";
+
+let index = 0;
+let foto = document.getElementById("foto");
+let texto = document.getElementById("texto");
+let reiniciarBtn = document.getElementById("reiniciar");
+
+function mostrarSlide() {
+  foto.style.opacity = 0;
+  texto.style.opacity = 0;
+
+  setTimeout(() => {
+    foto.src = fotos[index];
+
+    if (index < 3) {
+      texto.textContent = mensajes[index];
+    } else {
+      texto.textContent = mensajeFinal;
+      reiniciarBtn.style.opacity = 1;
+    }
+
+    foto.style.opacity = 1;
+    texto.style.opacity = 1;
+
+    if (index < 3) {
+      index++;
+      setTimeout(mostrarSlide, 6500);
+    }
+  }, 1600);
+}
+
+function reiniciarShow() {
+  index = 0;
+  reiniciarBtn.style.opacity = 0;
+  mostrarSlide();
+}
+
+mostrarSlide();
+</script>
+
+</body>
+</html>
