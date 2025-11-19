@@ -62,6 +62,7 @@
   #reiniciar:hover {
     background: #ffffff33;
   }
+
   .heart {
     position: absolute;
     width: 14px;
@@ -88,12 +89,17 @@
     0% { transform: translateY(0) rotate(45deg); opacity: 1; }
     100% { transform: translateY(-120px) rotate(45deg); opacity: 0; }
   }
-
 </style>
 </head>
 <body>
 
-<audio id="musica" src="musica.mp3" autoplay loop></audio>
+<!-- PANTALLA INICIAL -->
+<div id="start-screen" style="position:fixed; inset:0; background:#000; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:20px; z-index:2000; text-align:center; padding:20px;">
+  <h1 style="color:white; font-size:2rem; font-weight:600;">Hola mi amor…<br>tengo algo especial para ti 💗</h1>
+  <button id="start-btn" style="padding:12px 28px; font-size:1.2rem; border:none; border-radius:25px; background:#ff6bcb; color:white; cursor:pointer; box-shadow:0 0 10px rgba(255,107,203,0.7);">✨ Empezar ✨</button>
+</div>
+
+<audio id="musica" src="musica.mp3"></audio>
 
 <div class="container">
   <img id="foto" class="slideshow-img" src="foto1.jpg" />
@@ -102,7 +108,7 @@
 </div>
 
 <script>
-// Fotos 1 a 4 (la última es la final)
+// Fotos
 const fotos = [
   "foto1.jpg",
   "foto2.jpg",
@@ -110,7 +116,7 @@ const fotos = [
   "foto4.jpg"
 ];
 
-// Mensajes largos para las primeras 3 imágenes
+// Mensajes largos
 const mensajes = [
   "Desde que te conocí, hace ya medio añito, descubrí en ti una tranquilidad y una forma de ser que me hacen sentir segura y afortunada. Me encanta cómo eres, cómo hablas, cómo miras, cómo sientes. Y aunque recién cumpliremos nuestros dos mesecitos juntos, siento que cada día contigo vale muchísimo.",
 
@@ -119,7 +125,6 @@ const mensajes = [
   "Quiero tantas cosas contigo… quiero acompañarte, cuidarte, apoyarte y caminar juntos hacia todo lo que los dos deseamos. Quiero un futuro donde podamos mirar atrás y decir: lo hicimos, lo logramos, crecimos, y lo hicimos siempre juntos."
 ];
 
-// Mensaje final (para la foto 4)
 const mensajeFinal = "Feliz Día del Hombre, mi amor. Gracias por existir en mi vida y por todo lo que estamos construyendo juntos.";
 
 let index = 0;
@@ -157,8 +162,7 @@ function reiniciarShow() {
   mostrarSlide();
 }
 
-mostrarSlide();
-// corazones flotantes
+// Corazones flotantes
 function crearCorazon() {
   const heart = document.createElement('div');
   heart.className = 'heart';
@@ -169,16 +173,29 @@ function crearCorazon() {
   heart.style.background = color;
   heart.style.left = Math.random() * window.innerWidth + 'px';
   heart.style.top = (window.innerHeight + 20) + 'px';
-  
   heart.style.animationDuration = (4 + Math.random()*3) + 's';
-  document.body.appendChild(heart);
 
+  document.body.appendChild(heart);
   setTimeout(() => heart.remove(), 6000);
 }
 
-setInterval(crearCorazon, 250);
+// Activar después del botón
+const startBtn = document.getElementById('start-btn');
+const startScreen = document.getElementById('start-screen');
+const music = document.getElementById('musica');
 
+startBtn.addEventListener('click', () => {
+  startScreen.style.display = 'none';
+  music.currentTime = 25;
+  music.volume = 0.3;
+  music.play().catch(()=>{});
+  mostrarSlide();
+  setInterval(crearCorazon, 250);
+});
 </script>
+
+</body>
+</html>
 
 </body>
 </html>
